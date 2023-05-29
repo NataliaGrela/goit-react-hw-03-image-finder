@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { Component } from 'react';
 import searchIcon from '../svg/symbol.defs.svg';
 
@@ -6,8 +7,8 @@ class SearchBar extends Component {
     query: '',
   };
 
-  handleSubmit = (e) => {
-    e.preventDefault()
+  handleSubmit = e => {
+    e.preventDefault();
     const { onSearch } = this.props;
     onSearch && onSearch(this.state.query);
   };
@@ -41,5 +42,9 @@ class SearchBar extends Component {
     );
   }
 }
+
+SearchBar.propTypes = {
+  onSearch: PropTypes.func.isRequired,
+};
 
 export default SearchBar;

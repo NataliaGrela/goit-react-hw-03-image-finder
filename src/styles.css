@@ -29,7 +29,7 @@ img {
 /*
  * Стили компонента App
  */
-.app { 
+.app {
   display: grid;
   grid-template-columns: 1fr;
   grid-gap: 16px;
@@ -56,7 +56,7 @@ img {
   background-color: #3f51b5;
   box-shadow: 0px 2px 4px -1px rgba(0, 0, 0, 0.2),
     0px 4px 5px 0px rgba(0, 0, 0, 0.14), 0px 1px 10px 0px rgba(0, 0, 0, 0.12);
-}  /*added*/
+} /*added*/
 
 /*
  * Стили компонента SearchForm
@@ -69,7 +69,7 @@ img {
   background-color: #fff;
   border-radius: 3px;
   overflow: hidden;
-}  /*added*/
+} /*added*/
 
 .searchform-button {
   display: inline-block;
@@ -84,7 +84,7 @@ img {
   transition: opacity 250ms cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   outline: none;
-}  /*added*/
+} /*added*/
 
 .searchform-button:hover {
   opacity: 1;
@@ -100,7 +100,7 @@ img {
   white-space: nowrap;
   clip-path: inset(50%);
   border: 0;
-}  /*added*/
+} /*added*/
 
 .searchform-input {
   display: inline-block;
@@ -111,7 +111,7 @@ img {
   outline: none;
   padding-left: 4px;
   padding-right: 4px;
-}  /*added*/
+} /*added*/
 
 .searchform-input::placeholder {
   font: inherit;
@@ -134,7 +134,6 @@ img {
   margin-right: auto;
 } /*added*/
 
-
 /*
  * Стили компонента ImageGalleryItem
  */
@@ -143,7 +142,6 @@ img {
   box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2),
     0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
 } /*added*/
-
 
 .image-gallery-item-image {
   width: 100%;
@@ -182,13 +180,23 @@ img {
 /*
 * Стили компонента Buton (Load more)
 */
+
+.button-container {
+  display: flex;
+  justify-content: center;
+} /*added*/
+
 .button {
   padding: 8px 16px;
+  width: 300px;
+  height: 50px;
   border-radius: 2px;
   background-color: #3f51b5;
   transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
-  text-align: center;
-  display: inline-block;
+  /* display: inline-block; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
   color: #fff;
   border: 0;
   text-decoration: none;
@@ -208,7 +216,6 @@ img {
   background-color: #303f9f;
 } /*added*/
 
-
 /*ICON*/
 
 .icon {
@@ -219,4 +226,11 @@ img {
   border: none;
   margin-left: 1px;
   cursor: pointer;
+} /*added*/
+
+/*LOADER*/
+
+.loader {
+display: flex;
+justify-content: center;
 } /*added*/

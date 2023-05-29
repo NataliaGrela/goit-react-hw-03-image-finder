@@ -1,12 +1,11 @@
-import { Component } from 'react';
 import Button from './Button/Button';
 import ImageGallery from './ImageGallery/ImageGallery';
 import Modal from './Modal/Modal';
 import SearchBar from './Searchbar/Searchbar';
 import Loader from './Loader/Loader';
+import { Component } from 'react';
 import Notiflix from 'notiflix';
 import axios from 'axios';
-
 
 const API_URL = 'https://pixabay.com/api';
 const API_KEY = '34752040-45bcd231572a27f770c5128af';
@@ -20,6 +19,7 @@ class App extends Component {
     isLoading: false,
     error: null,
     currentImage: null,
+    openModal: false,
   };
 
   async componentDidMount() {
@@ -28,20 +28,38 @@ class App extends Component {
     const images = await this.getImages(page, query);
     this.setState({ images: images.hits, isLoading: false });
   }
+
   getImages = async (page, query) => {
     const endPoint =
       API_URL +
       `/?key=${API_KEY}&q=${query}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=${page}`;
-    const response = await axios.get(endPoint);
-    if (response.status !== 200) {
-      Notiflix.Notify.failure(
-        'Sorry, there are no images matching your search query. Please try again.'
-      );
-      return {};
-    }
 
-    const { data } = response;
-    return data;
+    // const response = await axios.get(endPoint);
+    // if (response.status !== 200) {
+    //   Notiflix.Notify.failure(
+    //     'Sorry, there are no images matching your search query. Please try again.'
+    //   );
+    //   return {};
+    // }
+
+    // const { data } = response;
+    // return data;
+
+    try {
+      const response = await axios.get(endPoint);
+      const { data } = response;
+      if (data.hits.length === 0) {
+        Notiflix.Notify.failure(
+          'Sorry, there are no images matching your search query. Please try again.'
+        );
+      }
+      return data;
+    } catch (error) {
+      Notiflix.Notify.failure(
+        'Sorry, there was an error. Please try again later.'
+      );
+      throw new Error('Error');
+    }
   };
 
   handleSearch = async query => {
@@ -67,16 +85,17 @@ class App extends Component {
   };
 
   handleClickImage = image => {
-    // this.setState({ Modal: <Modal image={image}></Modal> });
-    this.setState({ currentImage: image });
+    this.setState({ currentImage: image, openModal: true });
+  };
+
+  handleCloseModal = () => {
+    this.setState({ openModal: false });
   };
 
   render() {
-    // console.log(this.state);
-
     return (
       <div className="app">
-        <SearchBar onSearch={this.handleSearch}></SearchBar>
+        <SearchBar onSearch={this.handleSearch} />
 
         <ImageGallery
           onClick={this.handleClickImage}
@@ -86,12 +105,16 @@ class App extends Component {
         />
 
         {this.state.isLoading ? (
-          <Loader></Loader>
+          <Loader />
         ) : (
           <Button setPage={this.handleLoadMore}>Load more</Button>
         )}
-        {/* {this.state.Modal} */}
-        <Modal image={this.state.currentImage}></Modal>
+
+        <Modal
+          image={this.state.currentImage}
+          isOpen={this.state.openModal}
+          onClose={this.handleCloseModal}
+        />
       </div>
     );
   }

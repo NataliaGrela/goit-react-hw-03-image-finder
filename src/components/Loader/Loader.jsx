@@ -1,18 +1,19 @@
 import { Component } from 'react';
-import { Circles } from 'react-loader-spinner';
+import { ThreeDots } from 'react-loader-spinner';
 
 class Loader extends Component {
   render() {
     return (
-      <div>
-        <Circles
-          height="80"
-          width="80"
+      <div className="loader">
+        <ThreeDots
+          height="100"
+          width="100"
           radius="9"
-          color="green"
-          ariaLabel="loading"
-          wrapperStyle
-          wrapperClass
+          color="#e3174d"
+          ariaLabel="three-dots-loading"
+          wrapperStyle={{}}
+          wrapperClassName=""
+          visible={true}
         />
       </div>
     );

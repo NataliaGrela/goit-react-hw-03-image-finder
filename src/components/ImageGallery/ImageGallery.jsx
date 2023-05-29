@@ -1,11 +1,13 @@
-import { Component } from 'react';
+import PropTypes from 'prop-types';
 import ImageGalleryItem from './ImageGalleryItem/ImageGalleryItem';
+import { Component } from 'react';
 
 class ImageGallery extends Component {
   handleClick = image => {
     const { onClick } = this.props;
     onClick && onClick(image);
   };
+
   render() {
     return (
       <ul className="image-gallery">
@@ -21,5 +23,12 @@ class ImageGallery extends Component {
     );
   }
 }
+
+ImageGallery.propTypes = {
+  onClick: PropTypes.func.isRequired,
+  images: PropTypes.array.isRequired,
+  page: PropTypes.number.isRequired,
+  query: PropTypes.string.isRequired,
+};
 
 export default ImageGallery;

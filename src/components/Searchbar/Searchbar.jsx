@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types';
 import { Component } from 'react';
-import searchIcon from '../svg/symbol.defs.svg';
+import searchIcon from '../../assets/svg/symbol.defs.svg';
 
 class SearchBar extends Component {
   state = {

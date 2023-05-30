@@ -3,13 +3,8 @@ import ImageGallery from './ImageGallery/ImageGallery';
 import Modal from './Modal/Modal';
 import SearchBar from './Searchbar/Searchbar';
 import Loader from './Loader/Loader';
+import { getImages } from 'api/getImages';
 import { Component } from 'react';
-import Notiflix from 'notiflix';
-import axios from 'axios';
-
-const API_URL = 'https://pixabay.com/api';
-const API_KEY = '34752040-45bcd231572a27f770c5128af';
-// const PARAMS = `?key=${API_KEY}&image_type=photo&orientation=horizontal&safesearch=true&per_page=`;
 
 class App extends Component {
   state = {
@@ -25,46 +20,13 @@ class App extends Component {
   async componentDidMount() {
     const { page, query } = this.state;
     this.setState({ isLoading: true });
-    const images = await this.getImages(page, query);
+    const images = await getImages(page, query);
     this.setState({ images: images.hits, isLoading: false });
   }
 
-  getImages = async (page, query) => {
-    const endPoint =
-      API_URL +
-      `/?key=${API_KEY}&q=${query}&image_type=photo&orientation=horizontal&safesearch=true&per_page=12&page=${page}`;
-
-    // const response = await axios.get(endPoint);
-    // if (response.status !== 200) {
-    //   Notiflix.Notify.failure(
-    //     'Sorry, there are no images matching your search query. Please try again.'
-    //   );
-    //   return {};
-    // }
-
-    // const { data } = response;
-    // return data;
-
-    try {
-      const response = await axios.get(endPoint);
-      const { data } = response;
-      if (data.hits.length === 0) {
-        Notiflix.Notify.failure(
-          'Sorry, there are no images matching your search query. Please try again.'
-        );
-      }
-      return data;
-    } catch (error) {
-      Notiflix.Notify.failure(
-        'Sorry, there was an error. Please try again later.'
-      );
-      throw new Error('Error');
-    }
-  };
-
   handleSearch = async query => {
     this.setState({ isLoading: true });
-    const images = await this.getImages(1, query);
+    const images = await getImages(1, query);
     this.setState({
       images: images.hits,
       page: 1,
@@ -76,7 +38,7 @@ class App extends Component {
   handleLoadMore = async () => {
     const { page, query } = this.state;
     this.setState({ isLoading: true });
-    const images = await this.getImages(page + 1, query);
+    const images = await getImages(page + 1, query);
     this.setState({
       images: [...this.state.images, ...images.hits],
       page: page + 1,

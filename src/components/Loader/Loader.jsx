@@ -11,8 +11,6 @@ class Loader extends Component {
           radius="9"
           color="#e3174d"
           ariaLabel="three-dots-loading"
-          wrapperStyle={{}}
-          wrapperClassName=""
           visible={true}
         />
       </div>
